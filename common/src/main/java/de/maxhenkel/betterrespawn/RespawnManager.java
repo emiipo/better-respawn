@@ -34,7 +34,6 @@ public class RespawnManager {
         respawnAbilities.setRespawnAngle(player.getRespawnAngle());
         respawnAbilities.setRespawnForced(player.isRespawnForced());
 
-
         ServerLevel respawnDimension = player.getServer().getLevel(player.getRespawnDimension());
         BlockPos respawnLocation = player.getRespawnPosition();
 
@@ -49,7 +48,7 @@ public class RespawnManager {
             }
         }
 
-        if (player.serverLevel().dimensionType().hasCeiling() || !player.serverLevel().dimensionType().bedWorks()) {
+        if (BetterRespawnMod.SERVER_CONFIG.disabledDimensions.get().contains(player.serverLevel().dimension().location().toString())) {
             BetterRespawnMod.LOGGER.info("Can't respawn {} in {}", player.getName().getString(), player.serverLevel().dimension().location());
             return;
         }

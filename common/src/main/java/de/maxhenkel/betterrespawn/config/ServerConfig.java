@@ -1,5 +1,6 @@
 package de.maxhenkel.betterrespawn.config;
 
+import de.maxhenkel.configbuilder.custom.StringList;
 import de.maxhenkel.configbuilder.entry.ConfigEntry;
 
 public abstract class ServerConfig {
@@ -7,5 +8,6 @@ public abstract class ServerConfig {
     public ConfigEntry<Integer> maxRespawnDistance;
     public ConfigEntry<Integer> minRespawnDistance;
     public ConfigEntry<Integer> respawnBlockRange;
+    public ConfigEntry<StringList> disabledDimensions;
 
 }

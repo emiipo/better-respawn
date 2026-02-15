@@ -1,6 +1,7 @@
 package de.maxhenkel.betterrespawn.config;
 
 import de.maxhenkel.configbuilder.ConfigBuilder;
+import de.maxhenkel.configbuilder.custom.StringList;
 
 public class FabricServerConfig extends ServerConfig {
 
@@ -26,6 +27,10 @@ public class FabricServerConfig extends ServerConfig {
                 Integer.MAX_VALUE,
                 "If the player is in this range of its bed/respawn anchor it will respawn there"
         );
+        disabledDimensions = builder.entry(
+                "disabled_dimensions",
+                StringList.of())
+                .comment("If the player is in this range of its bed/respawn anchor it will respawn there");
     }
 
 }

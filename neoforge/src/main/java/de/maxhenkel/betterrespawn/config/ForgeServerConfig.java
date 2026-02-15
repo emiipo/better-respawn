@@ -1,6 +1,10 @@
 package de.maxhenkel.betterrespawn.config;
 
+import java.util.Collections;
+import java.util.List;
+
 import de.maxhenkel.configbuilder.Config;
+import de.maxhenkel.configbuilder.custom.StringList;
 import de.maxhenkel.configbuilder.entry.ConfigEntry;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -16,6 +20,10 @@ public class ForgeServerConfig extends ServerConfig {
         respawnBlockRange = wrapConfigEntry(builder
                 .comment("If the player is in this range of its bed/respawn anchor it will respawn there")
                 .defineInRange("respawn_block_range", 256, 0, Integer.MAX_VALUE));
+        disabledDimensions = wrapConfigEntry(builder
+                .comment("Dimension in which death results in the player respawning at their bed/respawn anchor")
+                .<StringList>define("disabled_dimensions", 
+                StringList.of()));
     }
 
     public static <T> ConfigEntry<T> wrapConfigEntry(ModConfigSpec.ConfigValue<T> configValue) {
