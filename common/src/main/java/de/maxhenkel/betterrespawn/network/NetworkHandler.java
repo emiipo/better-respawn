@@ -1,5 +1,5 @@
 package de.maxhenkel.betterrespawn.network;
 
 public interface NetworkHandler {
-    void sendRespawnAtRespawnPointPacket();
+    void sendRespawnNearbyPacket();
 }

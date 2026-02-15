@@ -9,27 +9,27 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class ForgeNetworkHandler implements NetworkHandler{
 
-    public static class RespawnAtRespawnPointPacket {}
+    public static class RespawnNearbyPacket {}
 
      private static final SimpleChannel CHANNEL = ChannelBuilder
-          .named(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_at_respawn_point"))
+          .named(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_nearby"))
           .optional()
           .simpleChannel();
 
     public static void init() {
-        CHANNEL.messageBuilder(RespawnAtRespawnPointPacket.class)
+        CHANNEL.messageBuilder(RespawnNearbyPacket.class)
             .encoder((msg, buf) -> {})
-            .decoder(buf -> new RespawnAtRespawnPointPacket())
+            .decoder(buf -> new RespawnNearbyPacket())
             .consumerMainThread((msg, ctx) -> {
                 ServerPlayer player = ctx.getSender();
-                BetterRespawnMod.RESPAWN_MANAGER.respawnAtRespawnPoint(player);
+                BetterRespawnMod.RESPAWN_MANAGER.respawnNearby(player);
             })
             .add();
         CHANNEL.build();
     }
 
     @Override
-    public void sendRespawnAtRespawnPointPacket() {
-        CHANNEL.send(new RespawnAtRespawnPointPacket(), PacketDistributor.SERVER.noArg());
+    public void sendRespawnNearbyPacket() {
+        CHANNEL.send(new RespawnNearbyPacket(), PacketDistributor.SERVER.noArg());
     }
 }

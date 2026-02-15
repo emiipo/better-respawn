@@ -13,21 +13,21 @@ import net.minecraft.server.level.ServerPlayer;
 public class FabricNetworkHandler implements NetworkHandler{
 
     public static void init() {
-        PayloadTypeRegistry.playC2S().register(RespawnAtRespawnPointPayload.TYPE, RespawnAtRespawnPointPayload.STREAM_CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(RespawnAtRespawnPointPayload.TYPE, (payload, context) -> {
+        PayloadTypeRegistry.playC2S().register(RespawnNearbyPayload.TYPE, RespawnNearbyPayload.STREAM_CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(RespawnNearbyPayload.TYPE, (payload, context) -> {
             ServerPlayer player = context.player();
-            BetterRespawnMod.RESPAWN_MANAGER.respawnAtRespawnPoint(player);
+            BetterRespawnMod.RESPAWN_MANAGER.respawnNearby(player);
         });
     }
 
     @Override
-    public void sendRespawnAtRespawnPointPacket() {
-         ClientPlayNetworking.send(new RespawnAtRespawnPointPayload());
+    public void sendRespawnNearbyPacket() {
+         ClientPlayNetworking.send(new RespawnNearbyPayload());
     }
     
-    public record RespawnAtRespawnPointPayload() implements CustomPacketPayload {
-        public static final Type<RespawnAtRespawnPointPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_at_respawn_point"));                                             
-        public static final StreamCodec<FriendlyByteBuf, RespawnAtRespawnPointPayload> STREAM_CODEC = StreamCodec.unit(new RespawnAtRespawnPointPayload());
+    public record RespawnNearbyPayload() implements CustomPacketPayload {
+        public static final Type<RespawnNearbyPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_nearby"));                                             
+        public static final StreamCodec<FriendlyByteBuf, RespawnNearbyPayload> STREAM_CODEC = StreamCodec.unit(new RespawnNearbyPayload());
 
         @Override
         public Type<? extends CustomPacketPayload> type() { return TYPE; }

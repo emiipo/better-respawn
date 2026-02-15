@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import de.maxhenkel.betterrespawn.BetterRespawnMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -27,8 +26,8 @@ public abstract class DeathScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void addRespawnAtSpawnButton(CallbackInfo ci) {
         respawnAtSpawnButton = this.addRenderableWidget(
-            Button.builder(Component.literal("Respawn at Respawn Point"), button -> {
-                BetterRespawnMod.NETWORK_HANDLER.sendRespawnAtRespawnPointPacket();
+            Button.builder(Component.literal("Respawn Nearby"), button -> {
+                BetterRespawnMod.NETWORK_HANDLER.sendRespawnNearbyPacket();
                 Minecraft.getInstance().getConnection().send(
                     new ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.PERFORM_RESPAWN)
                 );

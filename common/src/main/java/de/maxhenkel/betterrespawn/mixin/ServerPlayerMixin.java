@@ -14,11 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin {
 
-    @Inject(method = "die", at = @At("HEAD"))
-    public void init(CallbackInfo ci) {
-        BetterRespawnMod.RESPAWN_MANAGER.onPlayerDeath((ServerPlayer) ((Object) this));
-    }
-
     @Inject(method = "setRespawnPosition", at = @At("HEAD"))
     public void setRespawnPosition(ResourceKey<Level> dimension, @Nullable BlockPos pos, float angle, boolean forced, boolean showMessage, CallbackInfo ci) {
         BetterRespawnMod.RESPAWN_MANAGER.onSetRespawnPosition((ServerPlayer) ((Object) this), dimension, pos, angle, forced, showMessage);

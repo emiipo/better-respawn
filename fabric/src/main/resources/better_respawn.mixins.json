@@ -6,7 +6,9 @@
   "mixins": [
     "ServerPlayerMixin",
     "AbilitiesMixin",
-    "PlayerListMixin",
+    "PlayerListMixin"
+  ],
+  "client": [
     "DeathScreenMixin"
   ],
   "injectors": {

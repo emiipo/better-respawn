@@ -13,13 +13,13 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 public class NeoForgeNetworkHandler implements NetworkHandler{
 
     @Override
-    public void sendRespawnAtRespawnPointPacket() {
-        PacketDistributor.sendToServer(new RespawnAtRespawnPointPayload());
+    public void sendRespawnNearbyPacket() {
+        PacketDistributor.sendToServer(new RespawnNearbyPayload());
     }
     
-    public record RespawnAtRespawnPointPayload() implements CustomPacketPayload {                                                                     
-        public static final Type<RespawnAtRespawnPointPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_at_respawn_point"));
-        public static final StreamCodec<FriendlyByteBuf, RespawnAtRespawnPointPayload> STREAM_CODEC = StreamCodec.unit(new RespawnAtRespawnPointPayload());
+    public record RespawnNearbyPayload() implements CustomPacketPayload {                                                                     
+        public static final Type<RespawnNearbyPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("better_respawn", "respawn_nearby"));
+        public static final StreamCodec<FriendlyByteBuf, RespawnNearbyPayload> STREAM_CODEC = StreamCodec.unit(new RespawnNearbyPayload());
 
         @Override
         public Type<? extends CustomPacketPayload> type() { return TYPE; }
@@ -28,11 +28,11 @@ public class NeoForgeNetworkHandler implements NetworkHandler{
     @SubscribeEvent
     public static void onRegisterPayloadHandlers(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(
-            RespawnAtRespawnPointPayload.TYPE,
-            RespawnAtRespawnPointPayload.STREAM_CODEC,
+            RespawnNearbyPayload.TYPE,
+            RespawnNearbyPayload.STREAM_CODEC,
             (payload, context) -> {
                 ServerPlayer player = (ServerPlayer) context.player();
-                BetterRespawnMod.RESPAWN_MANAGER.respawnAtRespawnPoint(player);
+                BetterRespawnMod.RESPAWN_MANAGER.respawnNearby(player);
             }
         );
     }
