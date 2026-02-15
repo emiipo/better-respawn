@@ -1,5 +1,7 @@
 package de.maxhenkel.betterrespawn.config;
 
+import java.util.List;
+
 import de.maxhenkel.configbuilder.Config;
 import de.maxhenkel.configbuilder.custom.StringList;
 import de.maxhenkel.configbuilder.entry.ConfigEntry;
@@ -20,7 +22,8 @@ public class ForgeServerConfig extends ServerConfig {
         disabledDimensions = wrapConfigEntry(builder
                 .comment("Dimension in which death results in the player respawning at their bed/respawn anchor")
                 .<StringList>define("disabled_dimensions", 
-                StringList.of()));
+                StringList.of(),
+                entry -> entry instanceof List));
     }
 
     public static <T> ConfigEntry<T> wrapConfigEntry(ForgeConfigSpec.ConfigValue<T> configValue) {

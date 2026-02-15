@@ -23,7 +23,8 @@ public class ForgeServerConfig extends ServerConfig {
         disabledDimensions = wrapConfigEntry(builder
                 .comment("Dimension in which death results in the player respawning at their bed/respawn anchor")
                 .<StringList>define("disabled_dimensions", 
-                StringList.of()));
+                StringList.of(),
+                entry -> entry instanceof List));
     }
 
     public static <T> ConfigEntry<T> wrapConfigEntry(ModConfigSpec.ConfigValue<T> configValue) {
