@@ -1,6 +1,7 @@
 package de.maxhenkel.betterrespawn;
 
-import de.maxhenkel.betterrespawn.config.ForgeServerConfig;
+import de.maxhenkel.betterrespawn.config.NeoForgeServerConfig;
+import de.maxhenkel.betterrespawn.network.NeoForgeNetworkHandler;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -12,15 +13,17 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import java.util.function.Function;
 
 @Mod(BetterRespawnMod.MODID)
-public class ForgeBetterRespawnMod extends BetterRespawnMod {
+public class NeoForgeBetterRespawnMod extends BetterRespawnMod {
 
-    public ForgeBetterRespawnMod(IEventBus eventBus) {
+    public NeoForgeBetterRespawnMod(IEventBus eventBus) {
         eventBus.addListener(this::commonSetup);
+
+        NETWORK_HANDLER = new NeoForgeNetworkHandler();
     }
 
     public void commonSetup(FMLCommonSetupEvent event) {
         init();
-        SERVER_CONFIG = registerConfig(ModConfig.Type.SERVER, ForgeServerConfig::new);
+        SERVER_CONFIG = registerConfig(ModConfig.Type.SERVER, NeoForgeServerConfig::new);
     }
 
     public static <T> T registerConfig(ModConfig.Type type, Function<ModConfigSpec.Builder, T> consumer) {
@@ -31,5 +34,4 @@ public class ForgeBetterRespawnMod extends BetterRespawnMod {
         modContainer.registerConfig(type, spec);
         return config;
     }
-
 }

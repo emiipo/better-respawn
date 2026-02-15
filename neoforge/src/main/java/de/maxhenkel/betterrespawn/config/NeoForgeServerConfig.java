@@ -1,16 +1,14 @@
 package de.maxhenkel.betterrespawn.config;
 
-import java.util.Collections;
 import java.util.List;
-
 import de.maxhenkel.configbuilder.Config;
 import de.maxhenkel.configbuilder.custom.StringList;
 import de.maxhenkel.configbuilder.entry.ConfigEntry;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class ForgeServerConfig extends ServerConfig {
+public class NeoForgeServerConfig extends ServerConfig {
 
-    public ForgeServerConfig(ModConfigSpec.Builder builder) {
+    public NeoForgeServerConfig(ModConfigSpec.Builder builder) {
         maxRespawnDistance = wrapConfigEntry(builder
                 .comment("The maximum distance to spawn the player away from its death location")
                 .defineInRange("max_respawn_distance", 256, 16, 8192));

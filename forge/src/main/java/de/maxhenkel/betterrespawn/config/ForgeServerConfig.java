@@ -1,7 +1,6 @@
 package de.maxhenkel.betterrespawn.config;
 
 import java.util.List;
-
 import de.maxhenkel.configbuilder.Config;
 import de.maxhenkel.configbuilder.custom.StringList;
 import de.maxhenkel.configbuilder.entry.ConfigEntry;
