@@ -6,7 +6,8 @@
   "mixins": [
     "ServerPlayerMixin",
     "AbilitiesMixin",
-    "PlayerListMixin"
+    "PlayerListMixin",
+    "DeathScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
