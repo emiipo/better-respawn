@@ -1,6 +1,7 @@
 package de.maxhenkel.betterrespawn;
 
 import de.maxhenkel.betterrespawn.config.FabricServerConfig;
+import de.maxhenkel.betterrespawn.network.FabricNetworkHandler;
 import de.maxhenkel.configbuilder.ConfigBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -10,6 +11,9 @@ public class FabricBetterRespawnMod extends BetterRespawnMod implements ModIniti
     @Override
     public void onInitialize() {
         init();
+
+        FabricNetworkHandler.init();
+        NETWORK_HANDLER = new FabricNetworkHandler();
 
         SERVER_CONFIG = ConfigBuilder
                 .builder(FabricServerConfig::new)

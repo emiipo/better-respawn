@@ -91,6 +91,14 @@ public class RespawnManager {
         }
     }
 
+    public void respawnAtRespawnPoint(ServerPlayer player) {
+        if (!(player.getAbilities() instanceof RespawnAbilities abilities)) {
+            return;
+        }
+
+        player.setRespawnPosition(abilities.getRespawnDimension(), abilities.getRespawnPos(), abilities.getRespawnAngle(), abilities.getRespawnForced(), false);
+    }
+
     @Nullable
     public BlockPos findValidRespawnLocation(ServerLevel world, BlockPos deathLocation) {
         int min = BetterRespawnMod.SERVER_CONFIG.minRespawnDistance.get();

@@ -1,6 +1,7 @@
 package de.maxhenkel.betterrespawn;
 
 import de.maxhenkel.betterrespawn.config.ForgeServerConfig;
+import de.maxhenkel.betterrespawn.network.ForgeNetworkHandler;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -15,6 +16,9 @@ public class ForgeBetterRespawnMod extends BetterRespawnMod {
 
     public ForgeBetterRespawnMod() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+
+        ForgeNetworkHandler.init();
+        NETWORK_HANDLER = new ForgeNetworkHandler();
     }
 
     public void commonSetup(FMLCommonSetupEvent event) {
