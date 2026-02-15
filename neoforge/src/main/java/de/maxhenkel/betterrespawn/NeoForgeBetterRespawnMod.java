@@ -17,6 +17,7 @@ public class NeoForgeBetterRespawnMod extends BetterRespawnMod {
 
     public NeoForgeBetterRespawnMod(IEventBus eventBus) {
         eventBus.addListener(this::commonSetup);
+        eventBus.addListener(NeoForgeNetworkHandler::onRegisterPayloadHandlers);
 
         NETWORK_HANDLER = new NeoForgeNetworkHandler();
     }
