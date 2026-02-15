@@ -12,6 +12,8 @@ import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+
+import java.util.List;
 import java.util.Random;
 
 public class RespawnManager {
@@ -48,7 +50,8 @@ public class RespawnManager {
             }
         }
 
-        if (BetterRespawnMod.SERVER_CONFIG.disabledDimensions.get().contains(player.serverLevel().dimension().location().toString())) {
+        List<String> disabledDimensions = BetterRespawnMod.SERVER_CONFIG.disabledDimensions.get();        
+        if (!disabledDimensions.isEmpty() && disabledDimensions.contains(player.serverLevel().dimension().location().toString())) {
             BetterRespawnMod.LOGGER.info("Can't respawn {} in {}", player.getName().getString(), player.serverLevel().dimension().location());
             return;
         }
@@ -97,7 +100,7 @@ public class RespawnManager {
         for (int i = 0; i < FIND_SPAWN_ATTEMPTS && pos == null; i++) {
             BetterRespawnMod.LOGGER.info("Searching for respawn location - Attempt {}/{}", i + 1, FIND_SPAWN_ATTEMPTS);
             pos = PlayerRespawnLogic.getSpawnPosInChunk(world, new ChunkPos(new BlockPos(getRandomRange(deathLocation.getX(), min, max), 0, getRandomRange(deathLocation.getZ(), min, max))));
-            if (pos != null && !world.getWorldBorder().isWithinBounds(pos)) {
+            if (pos != null && (!world.getWorldBorder().isWithinBounds(pos) || !isPositionSafe(world, pos))) {
                 pos = null;
             }
         }
@@ -107,6 +110,12 @@ public class RespawnManager {
             BetterRespawnMod.LOGGER.info("Found valid respawn location: [{}, {}, {}]", pos.getX(), pos.getY(), pos.getZ());
         }
         return pos;
+    }
+
+    private boolean isPositionSafe(ServerLevel world, BlockPos pos) {
+        return !world.getBlockState(pos.below()).getCollisionShape(world, pos.below()).isEmpty() 
+            && world.getBlockState(pos).getCollisionShape(world, pos).isEmpty()
+            && world.getBlockState(pos.above()).getCollisionShape(world, pos.above()).isEmpty();
     }
 
     private int getRandomRange(int actual, int minDistance, int maxDistance) {
